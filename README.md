@@ -1,4 +1,4 @@
-# 🔬 LUMINA — Multi-Agent Document Intelligence Platform
+#  LUMINA — Multi-Agent Document Intelligence Platform
 
 <div align="center">
 
@@ -22,7 +22,7 @@ LLM-as-Judge reward loop. Zero human labels required.**
 
 ---
 
-## 🎯 What Makes LUMINA Original
+##  What Makes LUMINA Original
 
 Most multi-agent document systems use **static routing** (keyword matching or fixed pipelines). LUMINA introduces **Confidence-Gated Routing (CGR)**:
 
@@ -35,7 +35,7 @@ Most multi-agent document systems use **static routing** (keyword matching or fi
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -67,7 +67,7 @@ Most multi-agent document systems use **static routing** (keyword matching or fi
 
 ---
 
-## 📦 Repository Structure
+## Repository Structure
 
 ```
 lumina/
@@ -157,7 +157,7 @@ mlflow server --port 5000
 
 ---
 
-## 🚀 API Usage
+## API Usage
 
 ### Ingest a Document
 
@@ -211,7 +211,7 @@ curl "http://localhost:8000/drift/alerts?since_minutes=60"
 
 ---
 
-## 📓 Notebooks
+##  Notebooks
 
 | Notebook | Description | Key Outputs |
 |----------|-------------|-------------|
@@ -225,7 +225,7 @@ curl "http://localhost:8000/drift/alerts?since_minutes=60"
 
 ---
 
-## 🧪 Tests
+##  Tests
 
 ```bash
 # Run all tests
@@ -248,7 +248,7 @@ pytest tests/ -k "TestAPI" -v
 
 ---
 
-## 📊 Results
+##  Results
 
 | Metric | LUMINA (CGR) | Static Ensemble | Single-Agent Baseline |
 |--------|-------------|-----------------|----------------------|
@@ -262,7 +262,7 @@ pytest tests/ -k "TestAPI" -v
 
 ---
 
-## 🛠️ HuggingFace Tasks Integrated
+##  HuggingFace Tasks Integrated
 
 | Task | Model | Use |
 |------|-------|-----|
@@ -277,7 +277,7 @@ pytest tests/ -k "TestAPI" -v
 
 ---
 
-## 🔬 Novel Algorithm: CGR
+##  Novel Algorithm: CGR
 
 ```python
 # Simplified CGR decision logic
@@ -298,26 +298,8 @@ router.update()  # PPO clipped gradient update
 
 ---
 
-## 📄 Resume Bullet Points
 
-```
-• Designed & shipped LUMINA: production multi-agent document intelligence system integrating
-  8 HuggingFace tasks (DocQA, NER, Summarisation, VQA, TTS, Image-Text-to-Text, Text
-  Classification, Text Generation) with novel CGR RL routing, reducing unnecessary model
-  calls by 38% vs. static ensemble baseline.
-
-• Implemented LLM-as-Judge evaluation loop (Mistral API) scoring outputs across 4 quality
-  axes with zero human labels, feeding rewards into PPO policy — achieving 87% quality-gate
-  pass rate on SEC EDGAR + DocVQA + MIMIC-III benchmarks.
-
-• Built end-to-end LLMOps pipeline: MLflow experiment tracking, versioned prompt registry
-  with A/B routing, statistical drift detection (Z-score windowing), FastAPI inference
-  endpoint, Streamlit monitoring dashboard — fully containerised via Docker Compose.
-```
-
----
-
-## 🗺️ Real-World AI Engineering Mapping
+##  Real-World AI Engineering Mapping
 
 | LUMINA Component | Industry Equivalent |
 |-----------------|---------------------|
@@ -330,7 +312,7 @@ router.update()  # PPO clipped gradient update
 
 ---
 
-## 📚 Data Sources
+##  Data Sources
 
 - **SEC EDGAR API** — 10-K/10-Q annual reports (free, real financial data)
 - **DocVQA** — Document visual question answering benchmark
@@ -340,7 +322,7 @@ router.update()  # PPO clipped gradient update
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 ```bash
 # Fork → branch → PR
@@ -349,11 +331,6 @@ pytest tests/ -v          # all tests must pass
 git commit -m "feat: ..."
 ```
 
----
-
-## 📜 License
-
-MIT © LUMINA Project
 
 ---
 
