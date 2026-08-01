@@ -18,7 +18,7 @@ import sys, os, argparse, logging, time
 from unittest.mock import patch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-os.environ.setdefault('MISTRAL_API_KEY', 'hdd30lQaVEcAv9WWugWTh1nOxoO1a3hH')
+os.environ.setdefault('MISTRAL_API_KEY', 'Insert your own API key')
 
 logging.basicConfig(
     level=logging.WARNING,
