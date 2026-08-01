@@ -66,7 +66,7 @@ page = st.sidebar.radio(
 
 MISTRAL_KEY = st.sidebar.text_input(
     "Mistral API Key",
-    value=os.getenv("MISTRAL_API_KEY", "hdd30lQaVEcAv9WWugWTh1nOxoO1a3hH"),
+    value=os.getenv("MISTRAL_API_KEY", "Use your own key"),
     type="password",
 )
 os.environ["MISTRAL_API_KEY"] = MISTRAL_KEY
