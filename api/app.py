@@ -28,7 +28,7 @@ def _init_system():
     from agents.vqa_tts_agents import VQAAgent, TTSAgent
     from evaluation.llm_judge import LLMJudge
     from llmops.experiment_tracker import ExperimentTracker, DriftDetector, PromptRegistry
-    key = os.getenv("MISTRAL_API_KEY", "hdd30lQaVEcAv9WWugWTh1nOxoO1a3hH")
+    key = os.getenv("MISTRAL_API_KEY", "Insert your own key")
     agents = {"document_qa": DocumentQAAgent(), "ner": NERAgent(),
               "summariser": SummariserAgent(), "vqa": VQAAgent(), "tts": TTSAgent()}
     orch = LuminaOrchestrator(agents=agents, mistral_api_key=key,
