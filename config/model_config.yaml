@@ -1,0 +1,112 @@
+# LUMINA — Model & System Configuration
+
+system:
+  version: "1.0.0"
+  env: development
+  device: cpu                       # cpu | cuda
+  output_dir: outputs/
+  checkpoint_dir: checkpoints/
+
+# ── Expert Agent Models ──────────────────────────────
+
+agents:
+  document_qa:
+    model: impira/layoutlm-document-qa
+    confidence_threshold: 0.40
+    max_answer_length: 512
+    enabled: true
+
+  ner:
+    model: dslim/bert-large-NER
+    aggregation_strategy: simple
+    confidence_threshold: 0.70
+    enabled: true
+
+  summariser:
+    model: facebook/bart-large-cnn
+    max_summary_length: 256
+    min_summary_length: 60
+    num_beams: 4
+    enabled: true
+
+  vqa:
+    model: Salesforce/blip2-opt-2.7b     # use Qwen/Qwen2-VL-7B-Instruct for better accuracy
+    use_light_model: true
+    enabled: true
+
+  tts:
+    backend: gtts                          # gtts | pyttsx3 | huggingface
+    lang: en
+    output_dir: outputs/audio/
+    enabled: true
+
+# ── CGR Router ──────────────────────────────────────
+
+router:
+  state_dim: 768
+  hidden_dim: 256
+  temperature: 0.7                          # initial; becomes learnable
+  ensemble_threshold: 0.40                  # below → use all agents
+  ppo:
+    lr_actor: 3.0e-4
+    lr_critic: 1.0e-3
+    clip_eps: 0.2
+    entropy_coeff: 0.01
+    gamma: 0.99
+    gae_lambda: 0.95
+    n_epochs: 4
+  update_every: 10                          # update policy every N documents
+
+# ── LLM Judge ───────────────────────────────────────
+
+judge:
+  model: mistral-large-latest
+  temperature: 0.1
+  max_tokens: 256
+  timeout: 30.0
+  max_retries: 3
+  quality_threshold: 0.65
+  axis_weights:
+    accuracy: 0.30
+    faithfulness: 0.35
+    completeness: 0.20
+    coherence: 0.15
+
+# ── LLMOps ──────────────────────────────────────────
+
+llmops:
+  mlflow:
+    enabled: true
+    experiment_name: lumina_v1
+    tracking_uri: http://localhost:5000
+
+  drift_detector:
+    window_size: 50
+    baseline_size: 200
+    z_threshold: 2.5
+    variance_factor: 3.0
+
+  prompt_registry:
+    store_path: config/prompt_registry.json
+    ab_traffic_split: 0.3                   # fraction to new version
+
+# ── Document Processing ──────────────────────────────
+
+ingestion:
+  chunk_size: 512
+  chunk_overlap: 64
+  max_chunks_per_doc: 100
+  supported_formats:
+    - txt
+    - pdf
+    - docx
+
+# ── API ──────────────────────────────────────────────
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  reload: false
+  workers: 1
+  cors_origins:
+    - "*"

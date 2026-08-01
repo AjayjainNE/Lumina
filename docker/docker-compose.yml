@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  lumina-api:
+    build: {context: .., dockerfile: docker/Dockerfile}
+    container_name: lumina_api
+    ports: ["8000:8000"]
+    environment:
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - PYTHONPATH=/app/src
+    volumes: [lumina_outputs:/app/outputs, lumina_ckpts:/app/checkpoints]
+    depends_on: [mlflow]
+    restart: unless-stopped
+
+  lumina-dashboard:
+    build: {context: .., dockerfile: docker/Dockerfile}
+    container_name: lumina_dashboard
+    ports: ["8501:8501"]
+    environment:
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - PYTHONPATH=/app/src
+    command: streamlit run dashboard/streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+    depends_on: [lumina-api]
+    restart: unless-stopped
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.12.0
+    container_name: lumina_mlflow
+    ports: ["5000:5000"]
+    volumes: [mlflow_data:/mlflow]
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /mlflow/mlruns --default-artifact-root /mlflow/artifacts
+    restart: unless-stopped
+
+volumes:
+  lumina_outputs:
+  lumina_ckpts:
+  mlflow_data:
